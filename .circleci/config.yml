@@ -100,7 +100,8 @@ jobs:
           name: Build and Archive
           command: |
             cd /Users/distiller/project/platforms/ios
-
+            mkdir -p build/ios
+            
             # Get project name
             PROJECT_NAME="Cordova_CircleCI"
             
@@ -122,11 +123,11 @@ jobs:
               PROVISIONING_PROFILE_SPECIFIER="${PROVISIONING_PROFILE_NAME}" \
               CODE_SIGN_IDENTITY="iPhone Distribution"
 
-            xcodebuild -exportArchive \
-              -archivePath build/ios/app.xcarchive \
-              -exportOptionsPlist "${PWD}/exportOptions.plist" \
-              -exportPath build/ios/ipa \
-              -allowProvisioningUpdates
+          xcodebuild -exportArchive \
+            -archivePath build/ios/app.xcarchive \
+            -exportOptionsPlist "/Users/distiller/project/platforms/ios/exportOptions.plist" \
+            -exportPath build/ios/ipa \
+            -allowProvisioningUpdates
 
       - run:
           name: Generate Hash
