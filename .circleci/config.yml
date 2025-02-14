@@ -27,12 +27,19 @@ jobs:
             npm install
 
       - run:
+          name: Add iOS Platform
+          command: |
+            cd /Users/distiller/project
+            cordova platform add ios || true
+            cordova prepare ios
+            
+      - run:
           name: Install Apple Certificate
           command: |
             mkdir -p /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
-            cp /Users/distiller/project/ios/profile.mobileprovision /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
+            cp /Users/distiller/project/platforms/ios/profile.mobileprovision /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             security create-keychain -p "circle" build.keychain
-            security import /Users/distiller/project/ios/distribution.p12 -k build.keychain -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+            security import /Users/distiller/project/platforms/ios/distribution.p12 -k build.keychain -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
             security list-keychains -s build.keychain
             security default-keychain -s build.keychain
             security unlock-keychain -p "circle" build.keychain
