@@ -108,10 +108,15 @@ jobs:
             cd platforms/ios
             mkdir -p build/ios
             
-            # Get project name from config.xml
+            # Get project name
             PROJECT_NAME="Cordova_CircleCI"
             
-            # Archive and export IPA
+            # Clean and Archive
+            xcodebuild clean \
+              -workspace "${PROJECT_NAME}.xcworkspace" \
+              -scheme "${PROJECT_NAME}" \
+              -configuration Release
+              
             xcodebuild archive \
               -workspace "${PROJECT_NAME}.xcworkspace" \
               -scheme "${PROJECT_NAME}" \
