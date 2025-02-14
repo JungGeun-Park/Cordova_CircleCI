@@ -112,6 +112,7 @@ jobs:
             PROJECT_NAME=$(grep -A1 "<name>" ../../config.xml | tail -n1 | sed -e 's/[[:space:]]*//g' -e 's/<[^>]*>//g')
             
             # CocoaPods 설치 (xcworkspace 생성을 위해)
+            pod init
             pod install
             
             # Archive and export IPA
