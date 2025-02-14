@@ -100,12 +100,21 @@ jobs:
           command: |
             cd /Users/distiller/project
             
+            # iOS 플랫폼 준비
+            cordova platform rm ios || true
+            cordova platform add ios
+            cordova prepare ios
+            
             cd platforms/ios
             mkdir -p build/ios
             
             # Get project name from config.xml
             PROJECT_NAME=$(grep -A1 "<name>" ../../config.xml | tail -n1 | sed -e 's/[[:space:]]*//g' -e 's/<[^>]*>//g')
             
+            # CocoaPods 설치 (xcworkspace 생성을 위해)
+            pod install
+            
+            # Archive and export IPA
             xcodebuild archive \
               -workspace "${PROJECT_NAME}.xcworkspace" \
               -scheme "${PROJECT_NAME}" \
