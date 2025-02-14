@@ -32,7 +32,7 @@ jobs:
             cd /Users/distiller/project
             cordova platform add ios || true
             cordova prepare ios
-            
+
       - run:
           name: Install Apple Certificate
           command: |
@@ -99,13 +99,6 @@ jobs:
           name: Build and Archive
           command: |
             cd /Users/distiller/project
-            
-            # Add iOS platform
-            cordova platform add ios || true
-            
-            # Prepare and build iOS
-            cordova prepare ios
-            cordova build ios --release --device
             
             cd platforms/ios
             mkdir -p build/ios
