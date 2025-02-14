@@ -131,7 +131,7 @@ jobs:
 
             xcodebuild -exportArchive \
               -archivePath build/ios/app.xcarchive \
-              -exportOptionsPlist exportOptions.plist \
+              -exportOptionsPlist /Users/distiller/project/platforms/ios/exportOptions.plist \
               -exportPath build/ios/ipa \
               -allowProvisioningUpdates
 
