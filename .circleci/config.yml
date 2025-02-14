@@ -109,11 +109,7 @@ jobs:
             mkdir -p build/ios
             
             # Get project name from config.xml
-            PROJECT_NAME=$(grep -A1 "<name>" ../../config.xml | tail -n1 | sed -e 's/[[:space:]]*//g' -e 's/<[^>]*>//g')
-            
-            # CocoaPods 설치 (xcworkspace 생성을 위해)
-            pod init
-            pod install
+            PROJECT_NAME="Cordova_CircleCI"
             
             # Archive and export IPA
             xcodebuild archive \
