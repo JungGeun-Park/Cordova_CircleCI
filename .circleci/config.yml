@@ -123,11 +123,11 @@ jobs:
               PROVISIONING_PROFILE_SPECIFIER="${PROVISIONING_PROFILE_NAME}" \
               CODE_SIGN_IDENTITY="iPhone Distribution"
 
-          xcodebuild -exportArchive \
-            -archivePath build/ios/app.xcarchive \
-            -exportOptionsPlist "${PWD}/exportOptions.plist" \
-            -exportPath build/ios/ipa \
-            -allowProvisioningUpdates
+            xcodebuild -exportArchive \
+              -archivePath build/ios/app.xcarchive \
+              -exportOptionsPlist "${PWD}/exportOptions.plist" \
+              -exportPath build/ios/ipa \
+              -allowProvisioningUpdates
 
       - run:
           name: Generate Hash
