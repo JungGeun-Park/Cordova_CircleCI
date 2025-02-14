@@ -30,6 +30,7 @@ jobs:
           name: Add iOS Platform
           command: |
             cd /Users/distiller/project
+            cordova platform rm ios || true
             cordova platform add ios || true
             cordova prepare ios
 
@@ -67,6 +68,7 @@ jobs:
       - run:
           name: Create exportOptions.plist
           command: |
+            mkdir -p /Users/distiller/project/platforms/ios
             cat > /Users/distiller/project/platforms/ios/exportOptions.plist \<< EOF
             <?xml version="1.0" encoding="UTF-8"?>
             <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -98,16 +100,8 @@ jobs:
       - run:
           name: Build and Archive
           command: |
-            cd /Users/distiller/project
-            
-            # iOS 플랫폼 준비
-            cordova platform rm ios || true
-            cordova platform add ios
-            cordova prepare ios
-            
-            cd platforms/ios
-            mkdir -p build/ios
-            
+            cd /Users/distiller/project/platforms/ios
+
             # Get project name
             PROJECT_NAME="Cordova_CircleCI"
             
@@ -129,11 +123,11 @@ jobs:
               PROVISIONING_PROFILE_SPECIFIER="${PROVISIONING_PROFILE_NAME}" \
               CODE_SIGN_IDENTITY="iPhone Distribution"
 
-            xcodebuild -exportArchive \
-              -archivePath build/ios/app.xcarchive \
-              -exportOptionsPlist /Users/distiller/project/platforms/ios/exportOptions.plist \
-              -exportPath build/ios/ipa \
-              -allowProvisioningUpdates
+          xcodebuild -exportArchive \
+            -archivePath build/ios/app.xcarchive \
+            -exportOptionsPlist "${PWD}/exportOptions.plist" \
+            -exportPath build/ios/ipa \
+            -allowProvisioningUpdates
 
       - run:
           name: Generate Hash
