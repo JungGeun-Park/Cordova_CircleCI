@@ -37,6 +37,8 @@ jobs:
       - run:
           name: Install Apple Certificate
           command: |
+            ls -al /Users/distiller/project/platforms/ios
+            
             mkdir -p /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             cp /Users/distiller/project/platforms/ios/profile.mobileprovision /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             security create-keychain -p "circle" build.keychain
