@@ -99,6 +99,20 @@ jobs:
             EOF
 
       - run:
+          name: Update Build Number
+          command: |
+            cd /Users/distiller/project/platforms/ios
+            
+            # Get current build number from CircleCI
+            BUILD_NUMBER=$CIRCLE_BUILD_NUM
+            
+            # Get project name
+            PROJECT_NAME="Cordova_CircleCI"
+            
+            # Update build number using agvtool
+            xcrun agvtool new-version -all $BUILD_NUMBER
+
+      - run:
           name: Build and Archive
           command: |
             cd /Users/distiller/project/platforms/ios
