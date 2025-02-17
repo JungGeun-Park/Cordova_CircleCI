@@ -30,15 +30,15 @@ jobs:
           name: Add iOS Platform
           command: |
             cd /Users/distiller/project
-            cordova platform rm ios || true
-            cordova platform add ios || true
+            # cordova platform rm ios || true
+            # cordova platform add ios || true
             cordova prepare ios
 
       - run:
           name: Install Apple Certificate
           command: |
             ls -al /Users/distiller/project/platforms/ios
-            
+
             mkdir -p /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             cp /Users/distiller/project/platforms/ios/profile.mobileprovision /Users/distiller/Library/Developer/Xcode/UserData/Provisioning\ Profiles/
             security create-keychain -p "circle" build.keychain
